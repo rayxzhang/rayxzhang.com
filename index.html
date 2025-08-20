@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ray Zhang - Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.4;
+            color: #000;
+            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+            overflow-x: hidden;
+            zoom: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            margin-bottom: 30px;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: none;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(249, 250, 251, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .contact-info {
+            font-size: 11px;
+            color: #000;
+            line-height: 1.3;
+        }
+
+        .contact-info a {
+            color: #007AFF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #5856D6;
+            text-decoration: underline;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            padding-bottom: 2px;
+            border-bottom: 1px solid #000;
+            color: #000;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .institution {
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .location {
+            font-size: 11px;
+            font-style: italic;
+        }
+
+        .degree {
+            font-size: 11px;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .coursework, .activities {
+            font-size: 10px;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .job-title {
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .job-tech {
+            font-size: 10px;
+            font-style: italic;
+            color: #666;
+        }
+
+        .job-dates {
+            font-size: 10px;
+        }
+
+        .company {
+            font-size: 11px;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+
+        .job-description {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .job-description li {
+            font-size: 10px;
+            line-height: 1.3;
+            margin-bottom: 3px;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .job-description li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+        }
+
+        .project-header {
+            margin-bottom: 5px;
+        }
+
+        .project-title {
+            font-weight: bold;
+            font-size: 11px;
+            display: inline;
+        }
+
+        .project-tech {
+            font-size: 10px;
+            font-style: italic;
+            color: #666;
+            display: inline;
+        }
+
+        .project-description {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .project-description li {
+            font-size: 10px;
+            line-height: 1.3;
+            margin-bottom: 3px;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .project-description li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+        }
+
+        .skills-grid {
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .skill-category {
+            margin-bottom: 4px;
+        }
+
+        .skill-category strong {
+            font-weight: bold;
+        }
+
+        /* Apple-style scroll animations */
+        .parallax-element {
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Smooth entrance animations with staggered timing */
+        .section:nth-child(1) { transition-delay: 0.1s; }
+        .section:nth-child(2) { transition-delay: 0.2s; }
+        .section:nth-child(3) { transition-delay: 0.3s; }
+        .section:nth-child(4) { transition-delay: 0.4s; }
+        .section:nth-child(5) { transition-delay: 0.5s; }
+
+        /* Enhanced responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 30px;
+                margin: 10px;
+                border-radius: 8px;
+            }
+            
+            .section {
+                padding: 12px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .job-header, .education-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                zoom: 1.2;
+            }
+            
+            .container {
+                margin: 5px;
+                padding: 15px 20px;
+            }
+        }
+
+        /* Smooth scroll progress indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #007AFF, #5856D6);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                zoom: 1;
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+                background: white;
+                margin: 0;
+                padding: 20px;
+            }
+            
+            .section {
+                background: white;
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+            
+            .scroll-progress, .loading {
+                display: none;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <div class="container">
+        <header class="header section">
+            <h1>Ray Zhang</h1>
+            <div class="contact-info">
+                626-366-8456 | <a href="mailto:xiayangzhang@berkeley.edu">xiayangzhang@berkeley.edu</a> | <a href="https://linkedin.com/in/rayxzhang">linkedin.com/in/rayxzhang</a> | <a href="https://github.com/rayxzhang">github.com/rayxzhang</a>
+            </div>
+        </header>
+
+        <section class="section">
+            <h2 class="section-title">Education</h2>
+            <div class="education-header">
+                <span class="institution">University of California, Berkeley</span>
+                <span class="location">Berkeley, CA</span>
+            </div>
+            <div class="degree">Bachelor of Arts in Computer Science <span style="float: right; font-size: 10px;">Expected May 2026</span></div>
+            <div class="coursework">
+                <strong>•</strong> <strong>Relevant Coursework:</strong> Data Structures, Algorithms, Computer Architecture, Internet Architecture, Discrete Math & Probability, Linear Algebra, Data Science, Computer Graphics, Database Systems
+            </div>
+            <div class="activities">
+                <strong>•</strong> <strong>Activities:</strong> Full-Stack Web Dev DeCal | Mentor, Computer Science Undergraduate Association | President, Chinese Student Association
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Experience</h2>
+            
+            <div style="margin-bottom: 20px;">
+                <div class="job-header">
+                    <span class="job-title">Software Engineering Intern <span class="job-tech">| Python, SeleniumBase, Git</span></span>
+                    <span class="job-dates">Jun 2024 – Aug 2024</span>
+                </div>
+                <div class="company">DrKumo <span style="float: right;">Buena Park, CA (Remote)</span></div>
+                <ul class="job-description">
+                    <li>Built a SeleniumBase-powered automated QA testing framework from scratch, reducing manual test execution by 90% and increasing release velocity.</li>
+                    <li>Developed and maintained 50+ automated end-to-end test cases, improving product reliability and reducing production bugs.</li>
+                    <li>Partnered with designers and engineers to prototype an internal employee resource page in Figma, accelerating onboarding and knowledge sharing.</li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="job-header">
+                    <span class="job-title">IT & Automation Specialist <span class="job-tech">| Excel, HTML</span></span>
+                    <span class="job-dates">Feb 2018 – Present</span>
+                </div>
+                <div class="company">Dr. Zhang Neurology <span style="float: right;">Victorville, CA (Hybrid, Part-Time)</span></div>
+                <ul class="job-description">
+                    <li>Engineered an Excel automation tool that reduced daily batching & accounting time from 8 hours to under 1 minute (99.8% faster).</li>
+                    <li>Resolved high-priority IT incidents, preventing downtime and saving $10k+ in repair costs and hundreds of staff hours.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Projects</h2>
+            
+            <div style="margin-bottom: 12px;">
+                <div class="project-header">
+                    <span class="project-title">Blackjack Card Counting Trainer</span> <span class="project-tech">| TypeScript, React, Node.js, Express, Firebase, Jest, Tailwind, Vercel</span>
+                </div>
+                <ul class="project-description">
+                    <li>Developed a responsive React + TypeScript SPA with a Node/Express backend for real-time blackjack strategy & card counting training.</li>
+                    <li>Implemented Firebase Auth + Firestore (rules/indexes) for secure profile persistence and session analytics.</li>
+                    <li>Created Jest unit/integration tests; deployed on Vercel with Tailwind CSS for mobile-first design.</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <div class="project-header">
+                    <span class="project-title">Auto-Correcting Typing Software</span> <span class="project-tech">| Python</span>
+                </div>
+                <ul class="project-description">
+                    <li>Implemented backend logic to measure typing speed and apply intelligent auto-correction, improving test accuracy by 25% in trials.</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <div class="project-header">
+                    <span class="project-title">KeyQuest</span> <span class="project-tech">| Java, Git</span>
+                </div>
+                <ul class="project-description">
+                    <li>Built a procedurally generated world engine with real-time input validation and customizable character/environment skins.</li>
+                    <li>Implemented core gameplay features including random world generation, menus, and persistent save states.</li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="project-header">
+                    <span class="project-title">Ugly Dumplings</span> <span class="project-tech">| Python, AI (LLaMA-2-13B), Git</span>
+                </div>
+                <ul class="project-description">
+                    <li>Built an AI-powered web app that generates personalized recipes through ingredient parsing and advanced prompt engineering.</li>
+                    <li>Designed a scalable backend API integrating LLaMA-2-13B to dynamically generate cooking steps and ingredient quantities.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <strong>Languages:</strong> Java, Python, TypeScript, JavaScript, SQL, GraphQL, HTML, CSS, C, C++, Swift, Scala, Scheme, RISC-V
+                </div>
+                <div class="skill-category">
+                    <strong>Frameworks:</strong> React, Node.js, Express, SwiftUI
+                </div>
+                <div class="skill-category">
+                    <strong>Developer Tools:</strong> IntelliJ, VS Code, Spark, Xcode, Git, Vercel, Firebase Console, Jupyter Notebook, Trello
+                </div>
+                <div class="skill-category">
+                    <strong>Libraries:</strong> SeleniumBase, Tailwind CSS, Jest, pandas, NumPy, Matplotlib, seaborn, truth
+                </div>
+                <div class="skill-category">
+                    <strong>Additional:</strong> Mandarin (Chinese), Adobe Creative Cloud, Windows & macOS, Freelance Photography, Table Tennis, Juggling
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Apple-style smooth scrolling and animations
+        class ResumeAnimations {
+            constructor() {
+                this.sections = document.querySelectorAll('.section');
+                this.loading = document.getElementById('loading');
+                this.scrollProgress = document.getElementById('scrollProgress');
+                this.init();
+            }
+
+            init() {
+                this.setupIntersectionObserver();
+                this.setupScrollAnimations();
+                this.setupParallaxEffect();
+                this.setupScrollProgress();
+                this.hideLoading();
+                this.setupKeyboardNavigation();
+            }
+
+            hideLoading() {
+                setTimeout(() => {
+                    this.loading.classList.add('hidden');
+                }, 800);
+            }
+
+            setupScrollProgress() {
+                window.addEventListener('scroll', () => {
+                    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (winScroll / height) * 100;
+                    this.scrollProgress.style.width = scrolled + '%';
+                }, { passive: true });
+            }
+
+            setupKeyboardNavigation() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                        e.preventDefault();
+                        this.scrollToNextSection();
+                    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                        e.preventDefault();
+                        this.scrollToPrevSection();
+                    }
+                });
+            }
+
+            scrollToNextSection() {
+                const currentScroll = window.pageYOffset;
+                const nextSection = Array.from(this.sections).find(section => {
+                    return section.offsetTop > currentScroll + 50;
+                });
+                
+                if (nextSection) {
+                    nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            scrollToPrevSection() {
+                const currentScroll = window.pageYOffset;
+                const prevSection = Array.from(this.sections).reverse().find(section => {
+                    return section.offsetTop < currentScroll - 50;
+                });
+                
+                if (prevSection) {
+                    prevSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            setupIntersectionObserver() {
+                const options = {
+                    root: null,
+                    rootMargin: '-10% 0px -10% 0px',
+                    threshold: 0.1
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, options);
+
+                this.sections.forEach(section => {
+                    observer.observe(section);
+                });
+            }
+
+            setupScrollAnimations() {
+                let ticking = false;
+                let lastScrollY = 0;
+                const smoothingFactor = 0.1;
+
+                const updateAnimations = () => {
+                    const scrolled = window.pageYOffset;
+                    const rate = scrolled * -0.5;
+
+                    // Subtle parallax effect on header
+                    const header = document.querySelector('.header');
+                    if (header) {
+                        header.style.transform = `translateY(${rate * 0.2}px)`;
+                    }
+
+                    // Smooth scaling effect with improved easing
+                    this.sections.forEach((section, index) => {
+                        const rect = section.getBoundingClientRect();
+                        const isVisible = rect.top < window.innerHeight + 200 && rect.bottom > -200;
+                        
+                        if (isVisible) {
+                            // More gradual progress calculation
+                            const viewportCenter = window.innerHeight / 2;
+                            const sectionCenter = rect.top + rect.height / 2;
+                            const distanceFromCenter = Math.abs(viewportCenter - sectionCenter);
+                            const maxDistance = window.innerHeight / 2 + rect.height / 2;
+                            
+                            // Smooth easing function
+                            const progress = Math.max(0, 1 - (distanceFromCenter / maxDistance));
+                            const easedProgress = progress * progress * (3 - 2 * progress); // Smoothstep function
+                            
+                            // More subtle scaling range
+                            const scale = 0.98 + (easedProgress * 0.02);
+                            
+                            // Apply smooth transition
+                            section.style.transform = `scale(${scale})`;
+                            section.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        }
+                    });
+
+                    lastScrollY = scrolled;
+                    ticking = false;
+                };
+
+                const requestTick = () => {
+                    if (!ticking) {
+                        requestAnimationFrame(updateAnimations);
+                        ticking = true;
+                    }
+                };
+
+                window.addEventListener('scroll', requestTick, { passive: true });
+            }
+
+            setupParallaxEffect() {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const parallax = document.querySelector('.container');
+                    const speed = 0.02;
+                    
+                    parallax.style.transform = `translateY(${scrolled * speed}px)`;
+                }, { passive: true });
+            }
+        }
+
+        // Enhanced smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', () => {
+            new ResumeAnimations();
+            
+            // Add subtle entrance animation
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Smooth scroll behavior for any future navigation
+        window.addEventListener('load', () => {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
