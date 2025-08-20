@@ -60,6 +60,44 @@
             border-bottom: none;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(249, 250, 251, 0.8));
             border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .download-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 6px 24px rgba(0, 122, 255, 0.4);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(0, 122, 255, 0.5);
+            background: linear-gradient(135deg, #0051D5, #4C44B8);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .download-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
         }
 
         .header h1 {
@@ -254,6 +292,19 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+
+            .download-btn {
+                top: 15px;
+                right: 15px;
+                width: 48px;
+                height: 48px;
+                padding: 12px;
+            }
+            
+            .download-icon {
+                width: 18px;
+                height: 18px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -346,6 +397,12 @@
     </div>
 
     <div class="scroll-progress" id="scrollProgress"></div>
+
+    <a href="RayZhangResume.pdf" download="Ray_Zhang_Resume.pdf" class="download-btn" title="Download Resume">
+        <svg class="download-icon" viewBox="0 0 24 24">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+        </svg>
+    </a>
 
     <div class="container">
         <header class="header section">
