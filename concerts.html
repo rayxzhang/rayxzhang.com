@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ray's Concert Picks 🎵</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.4;
+            color: #000;
+            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+            overflow-x: hidden;
+            zoom: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(249, 250, 251, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 182, 193, 0.1), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+            100% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-btn {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 6px 24px rgba(255, 107, 107, 0.4);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.5);
+            background: linear-gradient(135deg, #FF5252, #FF7043);
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .concerts-grid {
+            display: grid;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .concert-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .concert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .concert-card:hover::before {
+            left: 100%;
+        }
+
+        .concert-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: rgba(255, 182, 193, 0.6);
+        }
+
+        .artist-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .concert-emoji {
+            font-size: 20px;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
+
+
+
+        .see-tickets-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .see-tickets-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+
+        /* Special styling for each artist */
+        .maroon5 { border-top: 4px solid #FF6B6B; }
+        .adventure-club { border-top: 4px solid #4ECDC4; }
+        .kaytranada { border-top: 4px solid #45B7D1; }
+        .stayc { border-top: 4px solid #FF9FF3; }
+        .carti { border-top: 4px solid #96CEB4; }
+
+        .maroon5:hover { background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 255, 255, 0.9)); }
+        .adventure-club:hover { background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(255, 255, 255, 0.9)); }
+        .kaytranada:hover { background: linear-gradient(135deg, rgba(69, 183, 209, 0.1), rgba(255, 255, 255, 0.9)); }
+        .stayc:hover { background: linear-gradient(135deg, rgba(255, 159, 243, 0.1), rgba(255, 255, 255, 0.9)); }
+        .carti:hover { background: linear-gradient(135deg, rgba(150, 206, 180, 0.1), rgba(255, 255, 255, 0.9)); }
+
+        .floating-notes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .note {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.1;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.1; }
+            90% { opacity: 0.1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        .note:nth-child(2) { animation-delay: 2s; left: 20%; }
+        .note:nth-child(3) { animation-delay: 4s; left: 40%; }
+        .note:nth-child(4) { animation-delay: 6s; left: 60%; }
+        .note:nth-child(5) { animation-delay: 8s; left: 80%; }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 30px;
+                margin: 10px;
+                border-radius: 8px;
+            }
+            
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .artist-name {
+                font-size: 20px;
+            }
+
+            .nav-btn {
+                top: 15px;
+                left: 15px;
+                width: 48px;
+                height: 48px;
+                padding: 12px;
+            }
+            
+            .nav-icon {
+                width: 18px;
+                height: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                zoom: 1.2;
+            }
+            
+            .container {
+                margin: 5px;
+                padding: 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-notes">
+        <div class="note">🎵</div>
+        <div class="note">🎶</div>
+        <div class="note">🎼</div>
+        <div class="note">🎤</div>
+        <div class="note">🎸</div>
+    </div>
+
+    <a href="index.html" class="nav-btn" title="Back to Resume">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </a>
+
+    <div class="container">
+        <header class="header">
+            <h1>🎵 Concert Picks 🎵</h1>
+            <div class="subtitle">Ray's curated list of must-see shows in the Bay Area ✨</div>
+        </header>
+
+        <div class="concerts-grid">
+            <div class="concert-card maroon5" onclick="window.open('https://goseeit.live/4mGFJxN', '_blank')">
+                <div class="artist-name">
+                    <span class="concert-emoji">🎤</span>
+                    Maroon 5
+                </div>
+                <a href="https://goseeit.live/4mGFJxN" class="see-tickets-btn" target="_blank" onclick="event.stopPropagation()">
+                    See Tickets ✨
+                </a>
+            </div>
+
+            <div class="concert-card adventure-club" onclick="window.open('https://goseeit.live/3HW3EKl', '_blank')">
+                <div class="artist-name">
+                    <span class="concert-emoji">🎧</span>
+                    Adventure Club
+                </div>
+                <a href="https://goseeit.live/3HW3EKl" class="see-tickets-btn" target="_blank" onclick="event.stopPropagation()">
+                    See Tickets ✨
+                </a>
+            </div>
+
+            <div class="concert-card kaytranada" onclick="window.open('https://goseeit.live/4n47rEb', '_blank')">
+                <div class="artist-name">
+                    <span class="concert-emoji">🕺</span>
+                    Kaytranada
+                </div>
+                <a href="https://goseeit.live/4n47rEb" class="see-tickets-btn" target="_blank" onclick="event.stopPropagation()">
+                    See Tickets ✨
+                </a>
+            </div>
+
+            <div class="concert-card stayc" onclick="window.open('https://goseeit.live/41v6zjO', '_blank')">
+                <div class="artist-name">
+                    <span class="concert-emoji">💫</span>
+                    STAYC
+                </div>
+                <a href="https://goseeit.live/41v6zjO" class="see-tickets-btn" target="_blank" onclick="event.stopPropagation()">
+                    See Tickets ✨
+                </a>
+            </div>
+
+            <div class="concert-card carti" onclick="window.open('https://goseeit.live/4g0yWMz', '_blank')">
+                <div class="artist-name">
+                    <span class="concert-emoji">🔥</span>
+                    Playboi Carti
+                </div>
+                <a href="https://goseeit.live/4g0yWMz" class="see-tickets-btn" target="_blank" onclick="event.stopPropagation()">
+                    See Tickets ✨
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.concert-card');
+            
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+
+            // Add click sound effect simulation (visual feedback)
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+
+        // Parallax effect for floating notes
+        document.addEventListener('mousemove', function(e) {
+            const notes = document.querySelectorAll('.note');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            notes.forEach((note, index) => {
+                const speed = (index + 1) * 0.5;
+                note.style.transform += ` translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
